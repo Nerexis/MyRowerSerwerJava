@@ -34,7 +34,7 @@ public class MySQLAccess {
             // Setup the connection with the DB
             connect = DriverManager
                     .getConnection("jdbc:mysql://localhost/myrower?"
-                            + "user=root&password=");
+                            + "user=root&password=212121");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -65,6 +65,24 @@ public class MySQLAccess {
 //            close();
 //        }
         return resultSet;
+    }
+
+    public boolean AddReserve(ReserveRequest request) {
+        try {
+            preparedStatement = connect
+                    .prepareStatement("INSERT INTO reservation (userId, stationFrom, stationTo, time, date) "
+                            + " VALUES (?, ?, ?, ?, ?);");
+            preparedStatement.setInt(1, request.userId);
+            preparedStatement.setString(2, request.from);
+            preparedStatement.setString(3, request.to);
+            preparedStatement.setString(4, request.time);
+            preparedStatement.setString(5, request.date);
+            preparedStatement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(MySQLAccess.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        return true;
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {

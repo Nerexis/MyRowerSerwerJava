@@ -41,6 +41,8 @@ public class MyRowerSerwer {
         
         server.getKryo().register(LoginRequest.class);
         server.getKryo().register(LoginReply.class);
+        server.getKryo().register(ReserveRequest.class);
+        
         
                 
         
@@ -86,6 +88,11 @@ public class MyRowerSerwer {
                         } catch (SQLException ex) {
                             Logger.getLogger(MyRowerSerwer.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    } else if(object instanceof ReserveRequest)
+                    {
+                        ReserveRequest request = (ReserveRequest) object;
+                        System.out.println("Got reserver request for user " + request.userId + " station " + request.from + " to " + request.to);
+                        mysql.AddReserve(request);
                     }
                 }
         });

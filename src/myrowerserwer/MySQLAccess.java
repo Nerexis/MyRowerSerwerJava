@@ -34,7 +34,7 @@ public class MySQLAccess {
             // Setup the connection with the DB
             connect = DriverManager
                     .getConnection("jdbc:mysql://localhost/myrower?"
-                            + "user=root&password=212121");
+                            + "user=root&password=");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
